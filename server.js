@@ -1,4 +1,5 @@
 const express = require('express')
+const joi = require('joi')
 const bcrypt = require('bcrypt')
 const app = express()
 
@@ -14,6 +15,17 @@ app.get('/users', (req, res) => {
 
 app.post('/users', async (req, res) => {
 	try {
+		const schema = {
+			name: joi.string().min(3).required(),
+			password: joi.required()
+		};
+
+		const result = joi.validate(req.body, schema);
+		if (result.error) {
+			res.status(400).send(result.error);
+			return;
+		}
+
 		const salt = await bcrypt.genSalt()
 		const hashedPassword = await bcrypt.hash(req.body.password, salt)
 		const user = { name: req.body.name, password: hashedPassword }
@@ -34,7 +46,7 @@ app.post('/users/login', async(req, res) => {
 		if (await bcrypt.compare(req.body.password, user.password)) {
 			res.send('success')
 		} else {
-			res.send('not allowed')
+			res.send('incorrect password')
 		}
 	} catch {
 		res.status(500).send()

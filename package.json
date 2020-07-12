@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "start",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/engrvictor/afrihow-api.git#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "joi": "^14.3.1"
   }
 }
