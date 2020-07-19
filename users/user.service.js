@@ -34,8 +34,8 @@ async function getById(id) {
 
 async function create(userParam) {
     // validate
-    if (await User.findOne({ username: userParam.username })) {
-        throw 'Username "' + userParam.username + '" is already taken';
+    if (await User.findOne({ email: userParam.email })) {
+        throw 'Email Address "' + userParam.email + '" is already taken';
     }
 
     const user = new User(userParam);
@@ -47,6 +47,7 @@ async function create(userParam) {
 
     // save user
     await user.save();
+    res.status(200).send('User created successfully');
 }
 
 async function update(id, userParam) {

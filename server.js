@@ -10,6 +10,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
+//Our structural API
+app.get('/', async (req, res) => {
+	var note = 'Welcome to AfriHow Backend API';
+	res.send(note)
+});
+
 // use JWT auth to secure the api
 app.use(jwt());
 
