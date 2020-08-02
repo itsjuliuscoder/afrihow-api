@@ -1,4 +1,4 @@
-﻿require('rootpath')();
+require('rootpath')();
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -15,6 +15,9 @@ app.use(jwt());
 
 // api routes
 app.use('/users', require('./users/users.controller'));
+app.use('/subjects', require('./subjects/subjects.controller'));
+app.use('/topics', require('./topics/topics.controller'));
+app.use('/stories', require('./stories/stories.controller'));
 
 // global error handler
 app.use(errorHandler);
