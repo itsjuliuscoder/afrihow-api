@@ -5,6 +5,8 @@ const userService = require('./user.service');
 // routes
 router.post('/authenticate', authenticate);
 router.post('/register', register);
+router.post('/confirmation', confirm);
+router.post('/resend-email', resend);
 router.get('/', getAll);
 router.get('/current', getCurrent);
 router.get('/:id', getById);
@@ -21,6 +23,18 @@ function authenticate(req, res, next) {
 
 function register(req, res, next) {
     userService.create(req.body)
+        .then(() => res.json({}))
+        .catch(err => next(err));
+}
+
+function confirm(req, res, next) {
+    userService.confirmation(req.body)
+        .then(() => res.json({}))
+        .catch(err => next(err));
+}
+
+function resend(req, res, next) {
+    userService.resend(req.body)
         .then(() => res.json({}))
         .catch(err => next(err));
 }
